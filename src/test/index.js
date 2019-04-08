@@ -1,16 +1,16 @@
-import postcss from "postcss";
-import tape from "tape";
-import plugin from "..";
+import postcss from 'postcss';
+import tape from 'tape';
+import plugin from '..';
 import features from '../features';
-import utils from "./utils";
+import utils from './utils';
 
 const featuresList = Object.keys(features);
 const options = {
-  features: {}
+  features: {},
 };
 
 // disable all features
-featuresList.forEach(function(name) {
+featuresList.forEach((name) => {
   if (!utils.exists(name)) return;
   const input = utils.readFixture(name);
   const expected = utils.readFixture(`${name}.expected`);
@@ -18,7 +18,7 @@ featuresList.forEach(function(name) {
   options.features.autoprefixer = name === 'autoprefixer';
 
   plugin(options).process(input).then((result) => {
-    let actual = result.css;
+    const actual = result.css;
 
     utils.write(utils.fixturePath(`${name}.actual`), actual);
 
@@ -30,5 +30,4 @@ featuresList.forEach(function(name) {
     console.log(e);
   });
 });
-
 

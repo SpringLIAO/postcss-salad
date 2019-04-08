@@ -9,71 +9,96 @@ const basicShape = require('./pages/basic-shape.md');
 const grid = require('./pages/grid.md');
 const sassSyntax = require('./pages/sass-syntax.md');
 
+const home = require('../README.md');
+
+
+/**
+ * 将实体转回为HTML
+ */
+const unescapeHtml = (str) => {
+  let s = '';
+  s = str.replace(/&amp;/g, '&');
+  s = s.replace(/&lt;/g, '<');
+  s = s.replace(/&gt;/g, '>');
+  s = s.replace(/&nbsp;/g, ' ');
+  s = s.replace(/&#39;/g, "'");
+  s = s.replace(/&quot;/g, '"');
+  s = s.replace(/<br>/g, '\n');
+  return s;
+};
+
+
 export default [
   {
     path: '/',
     component: {
-      template: `<div>${index}</div>`,
+      template: `<div>${unescapeHtml(index)}</div>`,
+    },
+  },
+  {
+    path: '/readme',
+    component: {
+      template: `<div>${unescapeHtml(home)}</div>`,
     },
   },
   {
     path: '/index',
     component: {
-      template: `<div>${index}</div>`,
+      template: `<div>${unescapeHtml(index)}</div>`,
     },
   },
   {
     path: '/reset',
     component: {
-      template: `<div>${reset}</div>`,
+      template: `<div>${unescapeHtml(reset)}</div>`,
     },
   },
   {
     path: '/lasted-syntax',
     component: {
-      template: `<div>${lastedSyntax}</div>`,
+      template: `<div>${unescapeHtml(lastedSyntax)}</div>`,
     },
   },
   {
     path: '/short-property',
     component: {
-      template: `<div>${shortProperty}</div>`,
+      template: `<div>${unescapeHtml(shortProperty)}</div>`,
     },
   },
   {
     path: '/Rem-to-Pixel',
     component: {
-      template: `<div>${RemToPixel}</div>`,
+      template: `<div>${unescapeHtml(RemToPixel)}</div>`,
     },
   },
   {
     path: '/inline-svg',
     component: {
-      template: `<div>${inlineSvg}</div>`,
+      template: `<div>${unescapeHtml(inlineSvg)}</div>`,
     },
   },
   {
     path: '/utils',
     component: {
-      template: `<div>${utils}</div>`,
+      template: `<div>${unescapeHtml(utils)}</div>`,
     },
   },
   {
     path: '/basic-shape',
     component: {
-      template: `<div>${basicShape}</div>`,
+      template: `<div>${unescapeHtml(basicShape)}</div>`,
     },
   },
   {
     path: '/grid',
     component: {
-      template: `<div>${grid}</div>`,
+      template: `<div>${unescapeHtml(grid)}</div>`,
     },
   },
   {
     path: '/sass-syntax',
     component: {
-      template: `<div>${sassSyntax}</div>`,
+      template: `<div>${unescapeHtml(sassSyntax)}</div>`,
     },
   },
 ];

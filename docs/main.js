@@ -1,9 +1,11 @@
+/* eslint-disable */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import 'src/assets/docs.css';
-import 'node_modules/highlight.js/styles/github-gist.css';
+import 'highlight.js/styles/github-gist.css';
 import App from './App';
 import routes from './routes';
+const index = require('./pages/index.md');
 
 Vue.use(VueRouter);
 

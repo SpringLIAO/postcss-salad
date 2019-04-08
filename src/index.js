@@ -1,46 +1,46 @@
-import postcss from "postcss"
-import { isSupported } from "caniuse-api"
+import postcss from 'postcss';
+import { isSupported } from 'caniuse-api';
 
-import libraryFeatures from "./features"
-import featuresActivationMap from "./features-activation-map"
-import warnForDuplicates from "./warn-for-duplicates"
+import libraryFeatures from './features';
+import featuresActivationMap from './features-activation-map';
+import warnForDuplicates from './warn-for-duplicates';
 
-const plugin = postcss.plugin("postcss-salad", (options) => {
+const plugin = postcss.plugin('postcss-salad', (options) => {
   options = {
-    console: console,
+    console,
     warnForDuplicates: true,
     features: {},
     ...options,
-  }
+  };
 
-  const features = options.features
+  const features = options.features;
 
   // copy browsers option to plugins that supports it
-  const pluginsToPropagateBrowserOption = [ "autoprefixer", "rem" ]
+  const pluginsToPropagateBrowserOption = ['autoprefixer', 'rem'];
 
   pluginsToPropagateBrowserOption.forEach((name) => {
-    const feature = features[name]
+    const feature = features[name];
 
     if (feature !== false) {
       features[name] = {
         browsers: (
           feature && feature.browsers
-          ? feature.browsers
-          : options.browsers
+            ? feature.browsers
+            : options.browsers
         ),
         ...(feature || {}),
-      }
+      };
     }
-  })
+  });
 
   if (features.autoprefixer && features.autoprefixer.browsers === undefined) {
-    delete features.autoprefixer.browsers
+    delete features.autoprefixer.browsers;
   }
 
-  const processor = postcss()
+  const processor = postcss();
 
   // features
-  Object.keys(libraryFeatures).forEach(key => {
+  Object.keys(libraryFeatures).forEach((key) => {
     // feature is auto enabled if: not disable && (enabled || no data yet ||
     // !supported yet)
     if (
@@ -62,24 +62,24 @@ const plugin = postcss.plugin("postcss-salad", (options) => {
       )
     ) {
       const plugin = libraryFeatures[key](
-        typeof features[key] === "object"
+        typeof features[key] === 'object'
           ? { ...features[key] }
-          : undefined
-        )
-      processor.use(plugin)
+          : undefined,
+      );
+      processor.use(plugin);
     }
-  })
+  });
 
   if (options.warnForDuplicates) {
     processor.use(warnForDuplicates({
       keys: Object.keys(libraryFeatures),
       console: options.console,
-    }))
+    }));
   }
 
-  return processor
-})
+  return processor;
+});
 
-plugin.features = libraryFeatures
+plugin.features = libraryFeatures;
 
-module.exports = plugin
+module.exports = plugin;

@@ -1,7 +1,10 @@
 <template>
   <aside class="docs-navbar">
-    <div class="aside-top">Salad<img class="salad-logo" src="~assets/logo.svg"></div>
+    <div class="aside-top">Salad<img class="salad-logo" src="../assets/logo.svg"></div>
     <ul class="nav">
+      <router-link tag="li" to="/postcss-salad/readme" class="nav-item">
+        <a>Readme</a>
+      </router-link>
       <router-link tag="li" to="/postcss-salad/index" class="nav-item">
         <a>Overview</a>
       </router-link>
